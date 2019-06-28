@@ -3,7 +3,7 @@ let money = 60000,
     addExpenses = "Dog, Car, Traveling",
     deposit = true,
     mission = 1000000000,
-    period = 20,
+    period = 10,
     budgetDay = money / 30;
 
 console.log(typeof money, typeof income, typeof deposit, typeof budgetDay, budgetDay,
