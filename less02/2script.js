@@ -1,22 +1,11 @@
-let money = 60000;
+let money = 60000,
+    income = "Copyrighting",
+    addExpenses = "Dog, Car, Traveling",
+    deposit = true,
+    mission = 1000000000,
+    period = 20,
+    budgetDay = money / 30;
 
-let income = "Copyrighting";
-console.log(income.length);
-
-let addExpenses = "Dog, Car, Traveling";
-console.log(addExpenses.toLowerCase());
-console.log(addExpenses.split(','));
-
-let deposit = true;
-
-let missionDollar = 1000000000;
-console.log(missionDollar);
-
-let period = 10;
-console.log("Период " + period + " месяцев");
-
-let budgetDay = money / 30;
-console.log(budgetDay);
-console.log(money % 30);
-
-console.log(typeof money, typeof income, typeof deposit, typeof budgetDay);
+console.log("Цель заработать " + mission + " Dollar", "Период " + period + " месяцев",
+    typeof money, typeof income, typeof deposit, typeof budgetDay, budgetDay,
+    income.length, addExpenses.toLowerCase(), addExpenses.split(','), money % 30);
