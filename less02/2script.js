@@ -1,8 +1,6 @@
 let money = 60000;
-console.log(typeof money);
 
 let income = "Copyrighting";
-console.log(typeof income);
 console.log(income.length);
 
 let addExpenses = "Dog, Car, Traveling";
@@ -10,14 +8,15 @@ console.log(addExpenses.toLowerCase());
 console.log(addExpenses.split(','));
 
 let deposit = true;
-console.log(typeof deposit);
 
 let missionDollar = 1000000000;
 console.log(missionDollar);
 
-let periodMonth = 10;
-console.log(periodMonth);
+let period = 10;
+console.log("Период " + period + " месяцев");
 
-let budgetDay = (4500 / 30);
-console.log(typeof budgetDay);
+let budgetDay = money / 30;
 console.log(budgetDay);
+console.log(money % 30);
+
+console.log(typeof money, typeof income, typeof deposit, typeof budgetDay);
