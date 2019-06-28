@@ -6,6 +6,11 @@ let money = 60000,
     period = 20,
     budgetDay = money / 30;
 
-console.log("Цель заработать " + mission + " Dollar", "Период " + period + " месяцев",
-    typeof money, typeof income, typeof deposit, typeof budgetDay, budgetDay,
-    income.length, addExpenses.toLowerCase(), addExpenses.split(','), money % 30);
+console.log(typeof money, typeof income, typeof deposit, typeof budgetDay, budgetDay,
+    income.length, money % 30);
+
+console.log(addExpenses.toLowerCase().split(','));
+
+console.log("Цель заработать " + mission + " Dollar");
+
+console.log("Период " + period + " месяцев");
