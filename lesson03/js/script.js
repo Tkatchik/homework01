@@ -1,6 +1,6 @@
 'use strict';
 
-let money = prompt('Ваш месячный доход?'),
+let money = +prompt('Ваш месячный доход?'),
     income = "Copyrighting",
     addExpenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую'),
     deposit = confirm('Есть ли у вас депозит в банке?'),
