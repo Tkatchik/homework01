@@ -16,18 +16,15 @@ console.log(deposit, money, addExpenses.split(','));
 console.log(typeof money, typeof income, typeof deposit);
 
 let addExpenses1 = prompt('Какие обязательные ежемесячные расходы у вас есть?'),
-    costs1 = prompt('Во сколько это обойдется?'),
+    costs1 = +prompt('Во сколько это обойдется?'),
     addExpenses2 = prompt('Какие обязательные ежемесячные расходы у вас есть?'),
-    costs2 = prompt('Во сколько это обойдется?');
+    costs2 = +prompt('Во сколько это обойдется?');
 
-console.log(addExpenses1, costs1, addExpenses2, costs2);
+let budgetMonth = (money - (costs1 + costs2)),
+    budgetDay = Math.floor(budgetMonth / 30);
 
-let budgetMonth = (money - costs1 - costs2);
-console.log(budgetMonth, Math.floor(mission / budgetMonth));
-
-
-let budgetDay = budgetMonth / 30;
-console.log(Math.round(budgetDay));
+console.log('Бюджет на месяц составит: ' + budgetMonth);
+console.log('Бюджет на день составит: ' + budgetDay);
 
 
 switch (true) {
@@ -35,11 +32,11 @@ switch (true) {
         console.log('Высокий уровень дохода');
         break;
 
-    case budgetDay > 300 < 800:
+    case budgetDay > 300 && budgetDay < 800:
         console.log('Средний уровень дохода');
         break;
 
-    case budgetDay > 0 < 300:
+    case budgetDay > 0 && budgetDay < 300:
         console.log('Низкий уровень дохода');
         break;
 
