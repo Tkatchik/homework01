@@ -13,7 +13,13 @@ console.log("Период " + period + " месяцев");
 
 console.log(deposit, money, addExpenses.split(','));
 
-console.log(typeof money, typeof income, typeof deposit);
+let showTypeof = function(item) {
+    console.log(item, typeof item);
+};
+
+showTypeof(money);
+showTypeof(income);
+showTypeof(deposit);
 
 let addExpenses1 = prompt('Какие обязательные ежемесячные расходы у вас есть?'),
     costs1 = +prompt('Во сколько это обойдется?'),
@@ -23,24 +29,34 @@ let addExpenses1 = prompt('Какие обязательные ежемесяч�
 let budgetMonth = (money - (costs1 + costs2)),
     budgetDay = Math.floor(budgetMonth / 30);
 
+function getExpensesMonth() {
+    return costs1 + costs2;
+}
+console.log('getExpensesMonth ', getExpensesMonth());
+
+let accumulatedMonth = function(getAccumulatedMonth) {
+    return mission / budgetMonth;
+};
+console.log('accumulatedMonth(): ', accumulatedMonth());
+
+function getTargetMonth() {
+    return (money - (costs1 + costs2));
+};
+console.log('getTargetMonth(): ', getTargetMonth());
+
+
 console.log('Бюджет на месяц составит: ' + budgetMonth);
 console.log('Бюджет на день составит: ' + budgetDay);
 
-
-switch (true) {
-    case (budgetDay > 800):
-        console.log('Высокий уровень дохода');
-        break;
-
-    case budgetDay > 300 && budgetDay < 800:
-        console.log('Средний уровень дохода');
-        break;
-
-    case budgetDay > 0 && budgetDay < 300:
-        console.log('Низкий уровень дохода');
-        break;
-
-    case budgetDay < 0:
-        console.log('Что то пошло не так');
-
+function getStatusIncome() {
+    if (budgetDay > 800) {
+        return ('Высокий уровень дохода');
+    } else if (budgetDay > 300 && budgetDay < 800) {
+        return ('Средний уровень дохода');
+    } else if (budgetDay > 0 && budgetDay < 300) {
+        return ('Низкий уровень дохода');
+    } else(budgetDay < 0); {
+        return ('Что то пошло не так');
+    }
 }
+console.log('getStatusIncome(): ', getStatusIncome());
