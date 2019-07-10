@@ -1,5 +1,10 @@
 'use strict';
 
+console.log(document.getElementById('start'));
+let checkbox = document.querySelector('#savings');
+let addExpenses = document.querySelectorAll('.additional_income-item');
+
+
 let money,
     stringArray = [],
     start = function() {

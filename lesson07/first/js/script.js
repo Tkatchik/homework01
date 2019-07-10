@@ -19,7 +19,7 @@ collect[0].insertBefore(elem[2], null);
 
 // Заменить картинку заднего фона на другую из папки image
 
-body.setAttribute('style', 'url(./first/image/you-dont-know-js.jpg)')
+body.setAttribute('style', 'background-image: url(./image/you-dont-know-js.jpg)');
 
 /* Исправить заголовок в книге 3( Получится - 
     "Книга 3. this и Прототипы Объектов") */
