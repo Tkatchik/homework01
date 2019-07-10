@@ -1,20 +1,44 @@
 'use strict';
 
-console.log(document.getElementById('start'));
-let checkbox = document.querySelector('#savings');
-let addExpenses = document.querySelectorAll('.additional_income-item');
+let start = document.getElementById('start'),
+    depositCheck = document.querySelector('#deposit-check'),
+    btnPlus = document.getElementsByTagName('button'),
+    incomePlus = btnPlus[0],
+    expensesPlus = btnPlus[1],
+    additionalIncomeItem = document.querySelectorAll('.additional_income-item'),
+    additionalExpenses = document.querySelector('.additional_expenses'),
+    budgetMonthValue = document.getElementsByClassName('budget_month-value')[0],
+    budgetDayValue = document.getElementsByClassName('budget_day-value')[0],
+    expensesMonthValue = document.getElementsByClassName('expenses_month-value')[0],
+    additionalIncomeValue = document.getElementsByClassName('additional_income-value')[0],
+    additionalExpensesValue = document.getElementsByClassName('additional_expenses-value')[0],
+    incomePeriodValue = document.getElementsByClassName('income_period-value')[0],
+    targetMonthValue = document.getElementsByClassName('target_month-value')[0],
+    salaryAmount = document.querySelector('.salary-amount'),
+    incomeTitle = document.querySelector('.income-title'),
+    incomeAmount = document.querySelector('.income-amount'),
+    expensesTitle = document.querySelector('.expenses-title'),
+    expensesAmount = document.querySelector('.expenses-amount'),
+    targetAmount = document.querySelector('.target-amount'),
+    periodAmount = document.querySelector('.period-select');
+
+
+console.log(start, additionalIncomeItem, depositCheck, btnPlus, incomePlus, expensesPlus,
+    additionalExpenses, budgetMonthValue, budgetDayValue, expensesMonthValue, additionalIncomeValue,
+    additionalExpensesValue, incomePeriodValue, targetMonthValue, salaryAmount,
+    incomeTitle, incomeAmount, expensesTitle, expensesAmount, targetAmount, periodAmount);
 
 
 let money,
     stringArray = [],
-    start = function() {
+    _start = function() {
         do {
             money = prompt('Ваш месячный доход?', 10000);
         } while (isNaN(money) || money == '' || money == null);
         console.log('Ваш месячный доход: ' + money + ' руб.');
     };
 
-start();
+_start();
 
 let appData = {
     income: {},
