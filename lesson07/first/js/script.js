@@ -18,8 +18,8 @@ collect[0].insertBefore(elem[4], elem[3]);
 collect[0].insertBefore(elem[2], null);
 
 // Заменить картинку заднего фона на другую из папки image
-console.log(document.styleSheets);
 
+body.setAttribute('style', 'url(./first/image/you-dont-know-js.jpg)')
 
 /* Исправить заголовок в книге 3( Получится - 
     "Книга 3. this и Прототипы Объектов") */
