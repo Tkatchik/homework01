@@ -32,13 +32,6 @@ let start = document.getElementById('start'), //кнопка "рассчитат
 
     periodSelect = document.querySelector('.period-select'), //накопления за период
     periodAmount = document.querySelector('.period-amount'); //ползунок
-//навела тут красоту, чтобы тебе было удобно работать
-
-// console.log(start, additionalIncomeItem, depositCheck, btnPlus, incomePlus, expensesPlus,
-//     additionalExpenses, budgetMonthValue, budgetDayValue, expensesMonthValue, additionalIncomeValue,
-//     additionalExpensesValue, incomePeriodValue, targetMonthValue, salaryAmount,
-//     incomeTitle, incomeAmount, expensesTitle, targetAmount, periodAmount); 
-//если тебе надо - оставь. но потом консоль логи лучше удалить
 
 let appData = {
     budget: 0,
@@ -61,7 +54,6 @@ let appData = {
             return;
         }
 
-
         appData.budget = +salaryAmount.value;
 
         appData.getExpenses();
@@ -73,7 +65,8 @@ let appData = {
         appData.getBudget();
         //они идут по порядку исполнения
 
-        appData.showResult(); //он всегда идёт последним
+        appData.showResult();
+        //он всегда идёт последним
     },
 
     showResult: function() {
@@ -84,6 +77,7 @@ let appData = {
         addIncomeValue.value = appData.addIncome.join(', ');
         targetMonthValue.value = Math.ceil(appData.getTargetMonth());
         incomePeriodValue.value = appData.calcSavedMoney();
+        appData.blockInput();
         periodSelect.addEventListener('change', function() {
             incomePeriodValue.value = appData.calcSavedMoney();
         });
@@ -209,6 +203,15 @@ let appData = {
         periodAmount.innerText = periodSelect.value;
     },
 
+    blockInput: function() {
+        document.querySelectorAll('.data input[type=text]').forEach(function(item) {
+            item.disabled = true;
+        });
+
+        start.style.display = 'none';
+        cancel.style.display = 'block';
+    }
+
 };
 
 // Запуск программы после нажатия "Рассчитать"
@@ -222,18 +225,3 @@ incomePlus.addEventListener('click', appData.addIncomeBlock);
 
 //ползунок меняет цифру
 periodSelect.addEventListener('input', appData.getRange);
-
-
-//в целом, хорошо подписывать то, что делаешь,  потом легче ориентироваться
-
-//а это всё можно удалить, больше не пригодится
-// console.log((appData.getTargetMonth() <= 0) ?
-//     'Срок достижения цели: ' + appData.getTargetMonth() + ' мес.' : 'Цель не будет достигнута');
-
-// for (let key in appData.income) {
-//     key = key.charAt(0).toUpperCase() + key.substring(1).toLowerCase();
-//     stringArray.push(key);
-// }
-// for (let key in appData.expenses) {
-//     key = key.charAt(0).toUpperCase() + key.substring(1).toLowerCase();
-//     stringArray.push(key);
