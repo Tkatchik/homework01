@@ -1,6 +1,7 @@
 'use strict';
 
-let start = document.getElementById('start'), //кнопка "рассчитать"
+let start = document.getElementById('start'), //кнопка "рассчитать
+
     cancel = document.querySelector('#cancel'), //кнопка "сбросить"
 
     btnPlus = document.getElementsByTagName('button'),
@@ -56,9 +57,10 @@ let appData = {
     start: function() {
 
         if (salaryAmount.value === '') {
-            alert('Ошибка, поле "Месячный доход" должно быть заполнено!');
+            start.setAttribute('disabled', 'disabled');
             return;
         }
+
 
         appData.budget = +salaryAmount.value;
 
@@ -82,6 +84,9 @@ let appData = {
         addIncomeValue.value = appData.addIncome.join(', ');
         targetMonthValue.value = Math.ceil(appData.getTargetMonth());
         incomePeriodValue.value = appData.calcSavedMoney();
+        periodSelect.addEventListener('change', function() {
+            incomePeriodValue.value = appData.calcSavedMoney();
+        });
 
     },
 
@@ -200,6 +205,10 @@ let appData = {
         return appData.budgetMonth * periodSelect.value;
     },
 
+    getRange: function() {
+        periodAmount.innerText = periodSelect.value;
+    },
+
 };
 
 // Запуск программы после нажатия "Рассчитать"
@@ -207,6 +216,13 @@ start.addEventListener('click', appData.start);
 
 // Добавить ещё одну статью расходов
 expensesPlus.addEventListener('click', appData.addExpensesBlock);
+
+// добавить ещё одну статью доходов
+incomePlus.addEventListener('click', appData.addIncomeBlock);
+
+//ползунок меняет цифру
+periodSelect.addEventListener('input', appData.getRange);
+
 
 //в целом, хорошо подписывать то, что делаешь,  потом легче ориентироваться
 
