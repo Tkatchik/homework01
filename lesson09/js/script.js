@@ -57,6 +57,7 @@ let appData = {
         this.budget = +salaryAmount.value;
         this.getExpenses();
         this.getIncome();
+        this.getIncomeMonth();
         this.getExpensesMonth();
         this.getAddExpenses();
         this.getAddIncome();
@@ -76,9 +77,8 @@ let appData = {
         incomePeriodValue.value = this.calcSavedMoney();
         this.blockInput();
         periodSelect.addEventListener('change', function() {
-            incomePeriodValue.value = this.calcSavedMoney();
+            incomePeriodValue.value = appData.calcSavedMoney();
         });
-
     },
 
     addExpensesBlock: function() {
@@ -111,7 +111,7 @@ let appData = {
 
             if (itemExpenses !== '' && cashExpenses !== '') {
                 cashExpenses = +cashExpenses;
-                this.expenses[itemExpenses] = cashExpenses;
+                appData.expenses[itemExpenses] = cashExpenses;
             }
         });
     },
@@ -124,12 +124,15 @@ let appData = {
 
             if (itemIncome !== '' && cashIncome !== '') {
                 cashIncome = +cashIncome;
-                this.income[itemIncome] = cashIncome;
-            }
-            for (let key in this.income) {
-                this.incomeMonth += +this.income[key];
+                appData.income[itemIncome] = cashIncome;
             }
         });
+    },
+
+    getIncomeMonth: function() {
+        for (let key in this.income) {
+            this.incomeMonth += +this.income[key];
+        };
     },
 
     getAddExpenses: function() {
@@ -137,7 +140,7 @@ let appData = {
         addExpenses.forEach(function(item) {
             item = item.trim();
             if (item !== '') {
-                this.addExpenses.push(item);
+                appData.addExpenses.push(item);
             }
         });
     },
@@ -146,7 +149,7 @@ let appData = {
         addIncomeItem.forEach(function(item) {
             let itemValue = item.value.trim();
             if (itemValue !== '') {
-                this.addIncome.push(itemValue);
+                appData.addIncome.push(itemValue);
             }
         });
     },
@@ -212,7 +215,6 @@ let appData = {
     reset: function() {
         document.location.reload(true);
     }
-
 };
 
 // Запуск программы после нажатия "Рассчитать"
