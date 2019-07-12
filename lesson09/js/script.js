@@ -76,7 +76,7 @@ let appData = {
         incomePeriodValue.value = this.calcSavedMoney();
         this.blockInput();
         periodSelect.addEventListener('change', function() {
-            incomePeriodValue.value = appthisData.calcSavedMoney();
+            incomePeriodValue.value = this.calcSavedMoney();
         });
 
     },
@@ -216,16 +216,16 @@ let appData = {
 };
 
 // Запуск программы после нажатия "Рассчитать"
-start.addEventListener('click', TouchList.start);
+start.addEventListener('click', appData.start.bind(appData));
 
 // запуск сброса после нажатия "сбросить"
-cancel.addEventListener('click', this.reset);
+cancel.addEventListener('click', appData.reset);
 
 // Добавить ещё одну статью расходов
-expensesPlus.addEventListener('click', this.addExpensesBlock);
+expensesPlus.addEventListener('click', appData.addExpensesBlock);
 
 // добавить ещё одну статью доходов
-incomePlus.addEventListener('click', this.addIncomeBlock);
+incomePlus.addEventListener('click', appData.addIncomeBlock);
 
 //ползунок меняет цифру
-periodSelect.addEventListener('input', this.getRange);
+periodSelect.addEventListener('input', appData.getRange);
