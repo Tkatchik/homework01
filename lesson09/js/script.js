@@ -76,6 +76,7 @@ let appData = {
         addExpensesValue.value = appData.addExpenses.join(', ');
         addIncomeValue.value = appData.addIncome.join(', ');
         targetMonthValue.value = Math.ceil(appData.getTargetMonth());
+
         incomePeriodValue.value = appData.calcSavedMoney();
         appData.blockInput();
         periodSelect.addEventListener('change', function() {
@@ -210,12 +211,18 @@ let appData = {
 
         start.style.display = 'none';
         cancel.style.display = 'block';
-    }
+    },
 
-};
+    reset: function() {
+        document.location.reload(true);
+    }
+}
 
 // Запуск программы после нажатия "Рассчитать"
 start.addEventListener('click', appData.start);
+
+// запуск сброса после нажатия "сбросить"
+cancel.addEventListener('click', appData.reset);
 
 // Добавить ещё одну статью расходов
 expensesPlus.addEventListener('click', appData.addExpensesBlock);
