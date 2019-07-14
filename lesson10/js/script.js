@@ -1,4 +1,4 @@
-'use strict';
+// Сделать класс DomElement, который
 
 function DomElement(selector, height, width, bg, fontSize) {
     this.selector = selector;
@@ -6,7 +6,16 @@ function DomElement(selector, height, width, bg, fontSize) {
     this.width = width;
     this.bg = bg;
     this.fontSize = fontSize;
+
+    //с помощью cssText задавать стили: 
+
+    DomElement.textContent = 'What did you expect?';
+    DomElement.style.cssText = 'font-size: this.fontSize; height: this.heigth; width: this.width; background: this.bg';
 }
+
+console.log(DomElement);
+
+// содержит метод, который создает элемент на странице
 
 DomElement.prototype.createElem = function() {
     let newElem;
@@ -17,14 +26,10 @@ DomElement.prototype.createElem = function() {
         newElem = document.createElement('p');
     }
 
-    newElem.textContent = 'What did you expect?';
-    newElem.style.height = this.height + 'px';
-    newElem.style.width = this.width + 'px';
-    newElem.style.bg = this.bg;
-    newElem.style.fontSize = this.fontSize + 'px';
+    // Создать новый объект на основе класса DomElement
+
+    function() {
+        let firstElem = new DomElement('.newContainer', 'blue', 250, 250, 50);
+        firstElem.createElem();
+    }
 };
-
-let firstElem = new DomElement('blue, 250, 250, 50');
-firstElem.createElem();
-
-console.log(DomElement, firstElem, newElem);
