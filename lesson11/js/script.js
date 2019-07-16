@@ -1,6 +1,6 @@
 'use strict';
 
-let start = document.getElementById('start'), //кнопка "рассчитать
+const start = document.getElementById('start'), //кнопка "рассчитать
 
     cancel = document.querySelector('#cancel'), //кнопка "сбросить"
 
@@ -16,10 +16,11 @@ let start = document.getElementById('start'), //кнопка "рассчитат
     addIncomeValue = document.querySelectorAll('.additional_income-value')[0],
     addExpensesValue = document.querySelectorAll('.additional_expenses-value')[0],
     incomePeriodValue = document.querySelectorAll('.income_period-value')[0],
-    targetMonthValue = document.querySelectorAll('.target_month-value')[0],
+    targetMonthValue = document.querySelectorAll('.target_month-value')[0];
+/* тут закончились поля, которые по умолчанию - неизменяемы*/
 
-    //поля ввода
-    salaryAmount = document.querySelector('.salary-amount'), //общий доход
+//поля ввода
+let salaryAmount = document.querySelector('.salary-amount'), //общий доход
     expensesItems = document.querySelectorAll('.expenses-items'), //обязательные расходы
     addExpensesItem = document.querySelector('.additional_expenses-item'), //возможные расходы
     addIncomeItem = document.querySelectorAll('.additional_income-item'), //возможные доходы
@@ -66,13 +67,13 @@ class AppData {
         this.getAddIncome();
         this.getInfoDeposit();
         this.getBudget();
+        this.blockInput();
         //они идут по порядку исполнения
         this.showResult();
         //он всегда идёт последним
     }
 
-
-    showResult = () => {
+    showResult() {
         budgetMonthValue.value = this.budgetMonth;
         budgetDayValue.value = Math.floor(this.budgetDay);
         expensesMonthValue.value = this.expensesMonth;
@@ -80,13 +81,9 @@ class AppData {
         addIncomeValue.value = this.addIncome.join(', ');
         targetMonthValue.value = Math.ceil(this.getTargetMonth());
         incomePeriodValue.value = this.calcSavedMoney();
-        this.blockInput();
-        periodSelect.addEventListener('change', function() {
-            incomePeriodValue.value = appData.calcSavedMoney();
-        });
     }
 
-    addExpensesBlock = () => {
+    addExpensesBlock() {
         let cloneExpensesItem = expensesItems[0].cloneNode(true);
 
         expensesItems[0].parentNode.insertBefore(cloneExpensesItem, expensesPlus);
@@ -97,7 +94,7 @@ class AppData {
         }
     }
 
-    addIncomeBlock = () => {
+    addIncomeBlock() {
         let cloneIncomeItems = incomeItems[0].cloneNode(true);
 
         incomeItems[0].parentNode.insertBefore(cloneIncomeItems, incomePlus);
@@ -108,73 +105,89 @@ class AppData {
         }
     }
 
-    getExpenses = () => {
-        expensesItems.forEach((item) => {
+    getExpenses() {
+
+        const setContext = this; // обрати внимание вот сюда
+        // мы обозначаем контекст внутри метода, а затем присваиваем переменную  в анонимной функции ниже
+        // это хороший, рабочий метод, когда приходится работать с анонимной функцией (у неё контекст вызова сам по себе уже другой. не как у метода)
+
+        expensesItems.forEach(function(item) {
 
             let itemExpenses = item.querySelector('.expenses-title').value,
                 cashExpenses = item.querySelector('.expenses-amount').value;
 
             if (itemExpenses !== '' && cashExpenses !== '') {
                 cashExpenses = +cashExpenses;
-                this.expenses[itemExpenses] = cashExpenses;
+                setContext.expenses[itemExpenses] = cashExpenses;
             }
         });
     }
 
-    getIncome = () => {
-        incomeItems.forEach((item) => {
+    getIncome() {
+
+        const setContext = this; // по аналогии
+
+        incomeItems.forEach(function(item) {
 
             let itemIncome = item.querySelector('.income-title').value,
                 cashIncome = item.querySelector('.income-amount').value;
 
             if (itemIncome !== '' && cashIncome !== '') {
                 cashIncome = +cashIncome;
-                this.income[itemIncome] = cashIncome;
+                setContext.income[itemIncome] = cashIncome;
             }
         });
     }
 
-    getIncomeMonth = () => {
+    getAddExpenses() {
+
+        let addExpenses = addExpensesItem.value.split(',');
+
+        const setContext = this; // и тут
+
+        addExpenses.forEach(function(item) {
+            item = item.trim();
+            if (item !== '') {
+                setContext.addExpenses.push(item);
+            }
+        });
+    }
+
+    getAddIncome() {
+
+        const setContext = this; // и тут тоже
+
+        addIncomeItem.forEach(function(item) {
+            let itemValue = item.value.trim();
+            if (itemValue !== '') {
+                setContext.addIncome.push(itemValue);
+            }
+        });
+    }
+
+    getIncomeMonth() {
         for (let key in this.income) {
             this.incomeMonth += +this.income[key];
         };
     }
 
-    getAddExpenses = () => {
-        let addExpenses = addExpensesItem.value.split(',');
-        addExpenses.forEach(function(item) {
-            item = item.trim();
-            if (item !== '') {
-                appData.addExpenses.push(item);
-            }
-        });
-    }
-
-    getAddIncome = () => {
-        addIncomeItem.forEach(function(item) {
-            let itemValue = item.value.trim();
-            if (itemValue !== '') {
-                appData.addIncome.push(itemValue);
-            }
-        });
-    }
-
-    getExpensesMonth = () => {
+    getExpensesMonth() {
         for (let key in this.expenses) {
             this.expensesMonth += +this.expenses[key];
         }
     }
 
-    getBudget = () => {
-        this.budgetMonth = this.budget + this.incomeMonth - this.expensesMonth + (this.moneyDeposit * this.percentDeposit) / 12,
+    getBudget() {
+        this.budgetMonth = this.budget + this.incomeMonth - this.expensesMonth +
+            (this.moneyDeposit * this.percentDeposit) / 12,
             this.budgetDay = Math.floor(this.budgetMonth / 30);
     }
 
-    getTargetMonth = () => {
+    getTargetMonth() {
         return Math.ceil(targetAmount.value / this.budgetMonth);
     }
 
-    getStatusIncome = () => {
+    getStatusIncome() {
         switch (true) {
             case this.budgetDay >= 800:
                 return ('Высокий уровень дохода');
@@ -187,22 +200,22 @@ class AppData {
         }
     }
 
-    getInfoDeposit = () => {
+    getInfoDeposit() {
         if (this.deposit) {
             this.percentDeposit = depositPercent.value;
             this.moneyDeposit = depositAmount.value;
         }
     }
 
-    calcSavedMoney = () => {
+    calcSavedMoney() {
         return this.budgetMonth * periodSelect.value;
     }
 
-    getRange = () => {
+    getRange() {
         periodAmount.innerText = periodSelect.value;
     }
 
-    blockInput = () => {
+    blockInput() {
         document.querySelectorAll('.data input[type=text]').forEach(function(item) {
             item.disabled = true;
         });
@@ -211,50 +224,64 @@ class AppData {
         cancel.style.display = 'block';
     }
 
-    reset = () => {
+    reset() {
         document.location.reload(true);
     }
-    eventsListeners = () => {
-        depositCheck.addEventListener('change', function() {
-                if (depositCheck.checked) {
+
+    eventsListeners() {
+
+            //запуск программы
+            start.addEventListener('click', this.start);
+
+            // добавить ещё одну статью расходов
+            expensesPlus.addEventListener('click', this.addExpensesBlock);
+
+            // добавить ещё одну статью доходов
+            incomePlus.addEventListener('click', this.addIncomeBlock);
+
+            // клик на checkbox депозит
+            depositCheck.addEventListener('click', this.checkDeposit);
+
+            // отображение значения ползунка периода
+            periodSelect.addEventListener('input', this.getRange);
+
+            periodSelect.addEventListener('change', () => {
+                incomePeriodValue.value = this.calcSavedMoney();
+            });
+
+
+            // Перезапуск программы по клику на кнопку "Сбросить"
+            cancel.addEventListener('click', this.reset);
+
+            // танцы с депозитом
+            depositCheck.addEventListener('change', () => {
+                if (depositCheck.checked === true) {
                     depositBank.style.display = 'inline-block';
                     depositAmount.style.display = 'inline-block';
-                    appData.deposit = 'true';
+                    this.deposit = true;
 
                     depositBank.addEventListener('change', function() {
-                        let selectIndex = this.options[this.selectedIndex].value;
+                        let selectIndex = this[this.selectedIndex].value;
+
                         if (selectIndex === 'other') {
                             depositPercent.style.display = 'inline-block';
+                            depositPercent.removeAttribute('disabled');
                             depositPercent.value = '';
                         } else {
                             depositPercent.style.display = 'none';
-                            depositPercent.removeAttribute('disabled');
                             depositPercent.value = selectIndex;
                         }
                     });
+
                 } else {
                     depositBank.style.display = 'none';
                     depositAmount.style.display = 'none';
                     depositAmount.value = '';
-                    appData.deposit = 'false';
+                    this.deposit = false;
                 }
-            },
+            }); //depositCheck
+        } //eventListeners
+}; //AppData
 
-            // Запуск программы после нажатия "Рассчитать"
-            start.addEventListener('click', this.start.bind(this)),
-
-            // запуск сброса после нажатия "сбросить"
-            cancel.addEventListener('click', this.reset),
-
-            // Добавить ещё одну статью расходов
-            expensesPlus.addEventListener('click', this.addExpensesBlock),
-
-            // добавить ещё одну статью доходов
-            incomePlus.addEventListener('click', this.addIncomeBlock),
-
-            //ползунок меняет цифру
-            periodSelect.addEventListener('input', this.getRange));
-
-    }
-
-}
+const ourNewAppData = new AppData();
+ourNewAppData.eventsListeners(); //без запуска ничего работать не будет
