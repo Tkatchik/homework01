@@ -164,19 +164,6 @@ class AppData {
         return Math.ceil(targetAmount.value / this.budgetMonth);
     }
 
-    getStatusIncome() {
-        switch (true) {
-            case this.budgetDay >= 800:
-                return ('Высокий уровень дохода');
-            case this.budgetDay >= 300 && this.budgetDay < 800:
-                return ('Средний уровень дохода');
-            case this.budgetDay >= 0 && this.budgetDay < 300:
-                return ('Низкий уровень дохода');
-            default:
-                return ('Что то пошло не так');
-        }
-    }
-
     getInfoDeposit() {
         if (this.deposit) {
             this.percentDeposit = depositPercent.value;
