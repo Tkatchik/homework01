@@ -208,34 +208,34 @@ class AppData {
 
     eventsListeners() {
 
-        //запуск программы
+
         start.addEventListener('click', this.start);
 
-        // добавить ещё одну статью расходов - new
+
         expensesPlus.addEventListener('click', () => {
             this.getNewElem(expensesItems, expensesPlus);
             expensesItems = document.querySelectorAll('.expenses-items');
         });
 
-        // добавить ещё одну статью доходов - new
+
         incomePlus.addEventListener('click', () => {
             this.getNewElem(incomeItems, incomePlus);
             incomeItems = document.querySelectorAll('.income-items');
 
-            // клик на checkbox депозит
+
             depositCheck.addEventListener('click', this.checkDeposit);
 
-            // отображение значения ползунка периода
+
             periodSelect.addEventListener('input', this.getRange);
 
             periodSelect.addEventListener('change', () => {
                 incomePeriodValue.value = this.calcSavedMoney();
             });
 
-            // Перезапуск программы по клику на кнопку "Сбросить"
+
             cancel.addEventListener('click', this.reset);
 
-            // танцы с депозитом
+
             depositCheck.addEventListener('change', () => {
                 if (depositCheck.checked === true) {
                     depositBank.style.display = 'inline-block';
@@ -267,4 +267,4 @@ class AppData {
 }
 
 let ourNewAppData = new AppData();
-ourNewAppData.eventsListeners(); //без запуска ничего работать не будет
+ourNewAppData.eventsListeners();
