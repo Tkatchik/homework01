@@ -82,27 +82,6 @@ class AppData {
         incomePeriodValue.value = this.calcSavedMoney();
     }
 
-    addExpensesBlock() {
-        let cloneExpensesItem = expensesItems[0].cloneNode(true);
-
-        expensesItems[0].parentNode.insertBefore(cloneExpensesItem, expensesPlus);
-        expensesItems = document.querySelectorAll('.expenses-items');
-
-        if (expensesItems.length === 3) {
-            expensesPlus.style.display = 'none';
-        }
-    }
-
-    addIncomeBlock() {
-        let cloneIncomeItems = incomeItems[0].cloneNode(true);
-
-        incomeItems[0].parentNode.insertBefore(cloneIncomeItems, incomePlus);
-        incomeItems = document.querySelectorAll('.income-items');
-
-        if (incomeItems.length === 3) {
-            incomePlus.style.display = 'none';
-        }
-    }
     getNewElem(nodeList, btnPlus) {
         let cloneItem = nodeList[0].cloneNode(true);
         nodeList[0].parentNode.insertBefore(cloneItem, btnPlus);
