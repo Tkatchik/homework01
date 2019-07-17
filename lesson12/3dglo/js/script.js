@@ -14,6 +14,13 @@ window.addEventListener('DOMContentLoaded', function() {
                 seconds = Math.floor(timeRemaining % 60),
                 minutes = Math.floor((timeRemaining / 60) % 60),
                 hours = Math.floor(timeRemaining / 60 / 60);
+
+            if (timeRemaining <= 0) {
+                hours = '00';
+                minutes = '00';
+                seconds = '00';
+            }
+
             return { timeRemaining, hours, minutes, seconds };
         }
 
@@ -26,20 +33,20 @@ window.addEventListener('DOMContentLoaded', function() {
             timerSeconds.textContent = timer.seconds;
 
             if (timer.timeRemaining > 0) {
-                setTimeout(updateClock, 1000);
+                setInterval(() => {
+                    updateClock();
+                }, 1000);
             } else if (timer.timeRemaining <= 0) {
                 clearInterval(timer);
-
             }
 
             timerHours.innerHTML = ("0" + timer.hours).slice(-2);
             timerMinutes.innerHTML = ("0" + timer.minutes).slice(-2);
             timerSeconds.innerHTML = ("0" + timer.seconds).slice(-2);
-
         }
+
         updateClock();
-    } //function countTimer(deadLine)
+    } //function updateClock
 
-    setInterval(countTimer, 1000, '20 july 2019');
-
+    countTimer('20 july 2019');
 }); //window.addEventListener
