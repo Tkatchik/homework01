@@ -103,12 +103,21 @@ class AppData {
             incomePlus.style.display = 'none';
         }
     }
+    getNewElem(nodeList, btnPlus) {
+        let cloneItem = nodeList[0].cloneNode(true);
+        nodeList[0].parentNode.insertBefore(cloneItem, btnPlus);
+
+        cloneItem.children[0].addEventListener('input', this.checkContentText);
+        cloneItem.children[1].addEventListener('input', this.checkContentNumbers);
+
+        if (nodeList === 2) {
+            btnPlus.style.display = 'none';
+        }
+    }
 
     getExpenses() {
 
-        const setContext = this; // обрати внимание вот сюда
-        // мы обозначаем контекст внутри метода, а затем присваиваем переменную  в анонимной функции ниже
-        // это хороший, рабочий метод, когда приходится работать с анонимной функцией (у неё контекст вызова сам по себе уже другой. не как у метода)
+        const setContext = this;
 
         expensesItems.forEach(function(item) {
 
@@ -124,7 +133,7 @@ class AppData {
 
     getIncome() {
 
-        const setContext = this; // по аналогии
+        const setContext = this;
 
         incomeItems.forEach(function(item) {
 
@@ -220,14 +229,19 @@ class AppData {
 
     eventsListeners() {
 
-            //запуск программы
-            start.addEventListener('click', this.start);
+        //запуск программы
+        start.addEventListener('click', this.start);
 
-            // добавить ещё одну статью расходов
-            expensesPlus.addEventListener('click', this.addExpensesBlock);
+        // добавить ещё одну статью расходов - new
+        expensesPlus.addEventListener('click', () => {
+            this.getNewElem(expensesItems, expensesPlus);
+            expensesItems = document.querySelectorAll('.expenses-items');
+        });
 
-            // добавить ещё одну статью доходов
-            incomePlus.addEventListener('click', this.addIncomeBlock);
+        // добавить ещё одну статью доходов - new
+        incomePlus.addEventListener('click', () => {
+            this.getNewElem(incomeItems, incomePlus);
+            incomeItems = document.querySelectorAll('.income-items');
 
             // клик на checkbox депозит
             depositCheck.addEventListener('click', this.checkDeposit);
@@ -269,8 +283,9 @@ class AppData {
                     this.deposit = false;
                 }
             }); //depositCheck
-        } //eventListeners
-}; //AppData
+        }); //eventListeners
+    }; //AppData
+}
 
-const ourNewAppData = new AppData();
+let ourNewAppData = new AppData();
 ourNewAppData.eventsListeners(); //без запуска ничего работать не будет

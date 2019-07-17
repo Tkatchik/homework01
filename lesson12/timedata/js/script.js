@@ -1,46 +1,21 @@
 'use strict';
+let hour = (new Date()).getHours();
+if (hour > 23 || hour < 7)
+    document.write('Привет совам и лунатикам! ');
 
-let money = +prompt('Ваш месячный доход?'),
-    income = "Copyrighting",
-    addExpenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую'),
-    deposit = confirm('Есть ли у вас депозит в банке?'),
-    mission = 1000000000,
-    period = 10;
+if (hour > 6 && hour < 12)
+    document.write('Доброе утро! ');
 
-console.log("Цель заработать " + mission + " Dollar");
+if (hour > 11 && hour < 19)
+    document.write('Добрый день!');
 
-console.log("Период " + period + " месяцев");
+if (hour > 18 && hour < 24)
+    document.write('Добрый вечер! ');
 
-console.log(deposit, money, addExpenses.split(','));
+let day = (new Date()).getDay('Среда');
+document.write('Сегодня: ', day);
 
-console.log(typeof money, typeof income, typeof deposit);
-
-let addExpenses1 = prompt('Какие обязательные ежемесячные расходы у вас есть?'),
-    costs1 = +prompt('Во сколько это обойдется?'),
-    addExpenses2 = prompt('Какие обязательные ежемесячные расходы у вас есть?'),
-    costs2 = +prompt('Во сколько это обойдется?');
-
-let budgetMonth = (money - (costs1 + costs2)),
-    budgetDay = Math.floor(budgetMonth / 30);
-
-console.log('Бюджет на месяц составит: ' + budgetMonth);
-console.log('Бюджет на день составит: ' + budgetDay);
-
-
-switch (true) {
-    case (budgetDay > 800):
-        console.log('Высокий уровень дохода');
-        break;
-
-    case budgetDay > 300 && budgetDay < 800:
-        console.log('Средний уровень дохода');
-        break;
-
-    case budgetDay > 0 && budgetDay < 300:
-        console.log('Низкий уровень дохода');
-        break;
-
-    case budgetDay < 0:
-        console.log('Что то пошло не так');
-
-}
+//Добрый день (утро, вечер, ночь в зависимости от времени суток)
+//Сегодня: Понедельник
+//Текущее время:12:05:15 PM
+//До нового года осталось 175 дней
