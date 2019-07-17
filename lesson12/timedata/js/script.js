@@ -4,13 +4,10 @@ const today = new Date();
 let hour = (today.getHours());
 if (hour > 23 || hour < 7)
     document.write('Привет совам и лунатикам! ');
-
 if (hour > 6 && hour < 12)
     document.write('Доброе утро! ');
-
 if (hour > 11 && hour < 19)
     document.write('Добрый день!');
-
 if (hour > 18 && hour < 24)
     document.write('Добрый вечер! ' + '<br>');
 
@@ -31,9 +28,9 @@ document.write('Текущее время: ' + today.toLocaleTimeString('en') + 
 function daysLeftNewYear() {
 
     let nextDate = new Date("January 1, 2020"),
-        //Количество миллисекунд в одном дне
+        //Количество миллисекунд 
         msPerDay = 24 * 60 * 60 * 1000,
-        //Высчитываем количество дней
+        // количество дней
         daysLeft = Math.round((nextDate.getTime() -
             today.getTime()) / msPerDay),
         dayname = '',
@@ -46,7 +43,7 @@ function daysLeftNewYear() {
     else
     if (dd == 2 || dd == 3 || dd == 4) dayname = ' дня';
     else dayname = ' дней';
-    //Выводим надпись в документ
+
     document.write('До нового года осталось ' + daysLeft + dayname + '!!!');
 }
 
