@@ -67,9 +67,8 @@ class AppData {
         this.getInfoDeposit();
         this.getBudget();
         this.blockInput();
-        //они идут по порядку исполнения
         this.showResult();
-        //он всегда идёт последним
+
     }
 
     showResult() {
