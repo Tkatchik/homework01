@@ -63,8 +63,7 @@ class AppData {
         this.getIncome();
         this.getIncomeMonth();
         this.getExpensesMonth();
-        this.getAddExpenses();
-        this.getAddIncome();
+        this.getNewAdd();
         this.getInfoDeposit();
         this.getBudget();
         this.blockInput();
@@ -139,24 +138,15 @@ class AppData {
         });
     }
 
-    getAddExpenses() {
-
+    getNewAdd() {
         let addExpenses = addExpensesItem.value.split(',');
-
-        const setContext = this; // и тут
-
+        const setContext = this;
         addExpenses.forEach(function(item) {
             item = item.trim();
             if (item !== '') {
                 setContext.addExpenses.push(item);
             }
         });
-    }
-
-    getAddIncome() {
-
-        const setContext = this; // и тут тоже
-
         addIncomeItem.forEach(function(item) {
             let itemValue = item.value.trim();
             if (itemValue !== '') {
@@ -248,7 +238,6 @@ class AppData {
             periodSelect.addEventListener('change', () => {
                 incomePeriodValue.value = this.calcSavedMoney();
             });
-
 
             // Перезапуск программы по клику на кнопку "Сбросить"
             cancel.addEventListener('click', this.reset);
