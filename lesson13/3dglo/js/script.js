@@ -81,8 +81,26 @@ window.addEventListener('DOMContentLoaded', function() {
             });
 
         }); //foreach
+
         popUpClose.addEventListener('click', () => {
             popUp.style.display = 'none';
+        });
+
+        // animation
+        let boxElement = document.querySelector('.popup'),
+            animation = boxElement.animate([
+                { transform: 'translate(0)' },
+                { transform: 'translate(100px, 100px)' }
+            ], 500);
+
+        // no mobile devices
+
+        if (document.documentElement.clientWidth > 1200) {
+            document.write('');
+        }
+
+        animation.addEventListener('finish', function() {
+            boxElement.style.transform = 'fadeOut(150px, 200px)';
         });
 
     }; //const togglePopUp
