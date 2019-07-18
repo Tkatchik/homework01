@@ -3,13 +3,13 @@
 const today = new Date();
 let hour = (today.getHours());
 if (hour > 23 || hour < 7)
-    document.write('Привет совам и лунатикам! ');
+    document.write(`Привет совам и лунатикам! <br>`);
 if (hour > 6 && hour < 12)
-    document.write('Доброе утро! ');
+    document.write(`Доброе утро! <br>`);
 if (hour > 11 && hour < 19)
-    document.write('Добрый день!');
+    document.write(`Добрый день! <br>`);
 if (hour > 18 && hour < 24)
-    document.write('Добрый вечер! ' + '<br>');
+    document.write(`Добрый вечер! <br>`);
 
 let day = (today.getDay()),
     dayOfWeek = '';
@@ -21,9 +21,9 @@ if (day == 4) dayOfWeek = "Четверг";
 if (day == 5) dayOfWeek = "Пятница";
 if (day == 6) dayOfWeek = "Суббота";
 
-document.write('Сегодня: ' + dayOfWeek + '<br>');
+document.write(`Сегодня: ${dayOfWeek} <br>`);
 
-document.write('Текущее время: ' + today.toLocaleTimeString('en') + '<br>');
+document.write(`Текущее время: ${today.toLocaleTimeString('en')} <br>`);
 
 function daysLeftNewYear() {
 
@@ -44,7 +44,7 @@ function daysLeftNewYear() {
     if (dd == 2 || dd == 3 || dd == 4) dayname = ' дня';
     else dayname = ' дней';
 
-    document.write('До нового года осталось ' + daysLeft + dayname + '!!!');
+    document.write(`До нового года осталось ${daysLeft} ${dayname} !!!`);
 }
 
 daysLeftNewYear();
