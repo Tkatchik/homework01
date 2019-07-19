@@ -43,7 +43,7 @@ window.addEventListener('DOMContentLoaded', function() {
             timerHours.innerHTML = ("0" + timer.hours).slice(-2);
             timerMinutes.innerHTML = ("0" + timer.minutes).slice(-2);
             timerSeconds.innerHTML = ("0" + timer.seconds).slice(-2);
-        }
+        };
 
         updateClock();
     }; //const updateClock
@@ -97,16 +97,14 @@ window.addEventListener('DOMContentLoaded', function() {
                             }
                         }, 20);
                 });
+            } else {
+                elem.addEventListener('click', () => {
+                    popUp.style.display = 'block';
+                });
             }
-        });
+        }); //const togglePopUp
 
-
-        popUpClose.addEventListener('click', () => {
-            popUp.style.display = 'none';
-        });
-
-    }; //const togglePopUp
+    };
 
     togglePopUp();
-
 }); //window.addEventListener
