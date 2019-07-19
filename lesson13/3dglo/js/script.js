@@ -69,38 +69,40 @@ window.addEventListener('DOMContentLoaded', function() {
     toggleMenue();
 
     //popup
-
     const togglePopUp = () => {
         const popUp = document.querySelector('.popup'),
+            popUpContent = document.querySelector('.popup-content'),
             popUpBtn = document.querySelectorAll('.popup-btn'),
             popUpClose = document.querySelector('.popup-close');
 
-        popUpBtn.forEach((elem) => {
-            elem.addEventListener('click', () => {
-                popUp.style.display = 'block';
-            });
 
-        }); //foreach
+        popUpBtn.forEach((elem) => {
+            if (window.innerWidth >= 500) {
+                elem.addEventListener('click', () => {
+                    popUp.style.display = 'block';
+
+                    let moveAnimate = Date.now(),
+
+                        animateTimer = setInterval(function() {
+                            let timeSet = Date.now() - moveAnimate;
+
+                            if (timeSet >= 2000) {
+                                clearInterval(animateTimer);
+                                return;
+                            }
+                            moving(timeSet);
+
+                            function moving(timeSet) {
+                                popUpContent.style.top = timeSet / 35 + 'px';
+                            }
+                        }, 20);
+                });
+            }
+        });
+
 
         popUpClose.addEventListener('click', () => {
             popUp.style.display = 'none';
-        });
-
-        // animation
-        let boxElement = document.querySelector('.popup'),
-            animation = boxElement.animate([
-                { transform: 'translate(0)' },
-                { transform: 'translate(100px, 100px)' }
-            ], 500);
-
-        // no mobile devices
-
-        if (document.documentElement.clientWidth > 1200) {
-            document.write('');
-        }
-
-        animation.addEventListener('finish', function() {
-            boxElement.style.transform = 'fadeOut(150px, 200px)';
         });
 
     }; //const togglePopUp
