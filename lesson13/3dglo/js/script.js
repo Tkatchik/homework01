@@ -97,14 +97,19 @@ window.addEventListener('DOMContentLoaded', function() {
                             }
                         }, 20);
                 });
-            } else {
+            } else if (window.innerWidth < 500) {
                 elem.addEventListener('click', () => {
                     popUp.style.display = 'block';
                 });
             }
-        }); //const togglePopUp
+        });
 
-    };
+        popUpClose.addEventListener('click', () => {
+            popUp.style.display = 'none';
+        });
+    }; //const togglePopUp
 
     togglePopUp();
+
+
 }); //window.addEventListener
