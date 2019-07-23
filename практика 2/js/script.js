@@ -261,4 +261,18 @@ window.addEventListener('DOMContentLoaded', function() {
     }; //const slider
     slider();
 
+    const insertDots = () => {
+        let slide = document.querySelectorAll('.portfolio-item'),
+            dots = document.querySelectorAll('.portfolio-dots');
+
+        slide.forEach(() => {
+            let newDot = document.createElement('li');
+            newDot.className = 'dot';
+            dots.appendChild(newDot);
+        });
+
+    }; // const insertDots
+    insertDots();
+
+
 }); //window.addEventListener
