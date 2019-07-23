@@ -173,7 +173,6 @@ window.addEventListener('DOMContentLoaded', function() {
 
     tabs();
 
-
     const insertDots = () => {
         let slide = document.querySelectorAll('.portfolio-item'),
             dots = document.querySelector('.portfolio-dots');
@@ -186,7 +185,6 @@ window.addEventListener('DOMContentLoaded', function() {
 
     }; // const insertDots
     insertDots();
-
 
     // slider
 
