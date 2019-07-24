@@ -277,8 +277,35 @@ window.addEventListener('DOMContentLoaded', function() {
     // changing foto
 
     const fotoChange = () => {
-        const
+        const teamFotos = document.querySelector('.row');
+        fotoPerson = document.querySelectorAll('.col-md-4 col-sm-6 col-12');
+
+        let currentFoto = 0;
+
+        const prevFoto = (elem, index, strClass) => {
+            elem[index].classList.remove(strClass);
+        };
+
+        const nextFoto = (elem, index, strClass) => {
+            elem[index].classList.add(strClass);
+        };
+
+        fotoChange.addEventListener('mouseover', (event) => {
+            if (event.target.matches('.col-md-4 col-sm-6 col-12')) {
+                prevFoto();
+            }
+        });
+
     }; // const fotoChange
 
+    //calc
+
+    const justNumbers = () => {
+        const calc = document.getElementById('calc'),
+            forbidLetter = calc.matches(/[^a-z]/gi);
+
+
+    }; //const justNumbers
+    justNumbers(forbidLetter);
 
 }); //window.addEventListener
