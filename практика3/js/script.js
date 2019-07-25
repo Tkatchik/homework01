@@ -263,26 +263,26 @@ window.addEventListener('DOMContentLoaded', function() {
 
     // changing foto
 
-    //  const fotoChange = () => {
-    //      const teamFotos = document.querySelector('.command .row img');
+    const fotoChange = () => {
+        const teamFotos = document.querySelectorAll('.command .row img');
 
-    //      let currentFoto = 0;
+        teamFotos.forEach(elem => {
+            let commonTeamFotos;
 
-    //      const prevFoto = (elem, index, strClass) => {
-    //          elem[index].classList.remove(strClass);
-    //      };
+            elem.addEventListener('mouseover', (event) => {
+                commonTeamFotos = event.target.src;
 
-    //      const nextFoto = (elem, index, strClass) => {
-    //          elem[index].classList.add(strClass);
-    //      };
+                event.target.src = event.target.dataset.img;
+            });
 
-    //      fotoChange.addEventListener('mouseover', (event) => {
-    //          if (event.target.matches('.col-md-4 col-sm-6 col-12')) {
-    //              prevFoto();
-    //          }
-    //      });
+            elem.addEventListener('mouseleave', (event) => {
+                event.target.src = commonTeamFotos;
+            });
 
-    //  }; // const fotoChange
+        });
+
+    }; // const fotoChange
+    fotoChange();
 
     //calc
 
@@ -332,16 +332,17 @@ window.addEventListener('DOMContentLoaded', function() {
     }; //const calc
     calc(100);
 
-    //   const justNumber = () => {
-    //       const calcItem = document.querySelectorAll('calc-item');
+    //just numbers
 
-    //       calcItem.forEach((element) => {
+    const justNumber = () => {
+        const calcItem = document.querySelectorAll('.calc-item');
 
-    //          item.target.value = item.target.value.replace(/\D/g, '');
-
-    //      });
-    //   }; //justnumber
-
-    //  justNumber();
+        calcItem.forEach((element) => {
+            element.addEventListener('input', (item) => {
+                item.target.value = item.target.value.replace(/\D/g, '');
+            });
+        });
+    }; //justnumber
+    justNumber();
 
 }); //window.addEventListener
