@@ -173,4 +173,175 @@ window.addEventListener('DOMContentLoaded', function() {
 
     tabs();
 
+    // slider
+
+    const slider = () => {
+        const slide = document.querySelectorAll('.portfolio-item'),
+            btn = document.querySelectorAll('.portfolio-btn'),
+            dot = document.querySelectorAll('.dot'),
+            slider = document.querySelector('.portfolio-content');
+
+        let currentSlide = 0,
+            interval;
+
+        const prevSlide = (elem, index, strClass) => {
+            elem[index].classList.remove(strClass);
+        };
+
+        const nextSlide = (elem, index, strClass) => {
+            elem[index].classList.add(strClass);
+        };
+
+        const autoPlaySlide = () => {
+
+            prevSlide(slide, currentSlide, 'portfolio-item-active');
+            prevSlide(dot, currentSlide, 'dot-active');
+            currentSlide++;
+            if (currentSlide >= slide.length) {
+                currentSlide = 0;
+            }
+            nextSlide(slide, currentSlide, 'portfolio-item-active');
+            nextSlide(dot, currentSlide, 'dot-active');
+        };
+
+        const startSlide = (time = 3000) => {
+            interval = setInterval(autoPlaySlide, time);
+        };
+
+        const stopSlide = () => {
+            clearInterval(interval);
+        };
+
+        slider.addEventListener('click', (event) => {
+            event.preventDefault();
+
+            let target = event.target;
+            if (!target.matches('.portfolio-btn', '.dot')) {
+                return;
+            }
+
+            prevSlide(slide, currentSlide, 'portfolio-item-active');
+            prevSlide(dot, currentSlide, 'dot-active');
+
+            if (target.matches('#arrow-right')) {
+                currentSlide++;
+            } else if (target.matches('#arrow-left')) {
+                currentSlide--;
+            } else if (target.matches('.dot')) {
+                dot.forEach((elem, index, ) => {
+                    if (elem === target) {
+                        currentSlide = index;
+                    }
+                });
+            }
+            if (currentSlide >= slide.length) {
+                currentSlide = 0;
+            }
+            if (currentSlide < 0) {
+                currentSlide = slide.length - 1;
+            }
+            nextSlide(slide, currentSlide, 'portfolio-item-active');
+            nextSlide(dot, currentSlide, 'dot-active');
+        });
+
+        slider.addEventListener('mouseover', (event) => {
+            if (event.target.matches('.portfolio-btn') || event.target.matches('.dot')) {
+                stopSlide();
+            }
+        });
+
+        slider.addEventListener('mouseout', (event) => {
+            if (event.target.matches('.portfolio-btn') || event.target.matches('.dot')) {
+                startSlide();
+            }
+        });
+
+        startSlide(1500);
+
+    }; //const slider
+    slider();
+
+    // changing foto
+
+    //  const fotoChange = () => {
+    //      const teamFotos = document.querySelector('.command .row img');
+
+    //      let currentFoto = 0;
+
+    //      const prevFoto = (elem, index, strClass) => {
+    //          elem[index].classList.remove(strClass);
+    //      };
+
+    //      const nextFoto = (elem, index, strClass) => {
+    //          elem[index].classList.add(strClass);
+    //      };
+
+    //      fotoChange.addEventListener('mouseover', (event) => {
+    //          if (event.target.matches('.col-md-4 col-sm-6 col-12')) {
+    //              prevFoto();
+    //          }
+    //      });
+
+    //  }; // const fotoChange
+
+    //calc
+
+    const calc = (price = 100) => {
+
+        const calcBlock = document.querySelector('.calc-block'),
+            calcType = document.querySelector('.calc-type'),
+            calcSquare = document.querySelector('.calc-square'),
+            calcDay = document.querySelector('.calc-day'),
+            calcCount = document.querySelector('.calc-count'),
+            totalValue = document.getElementById('total');
+
+        const countSum = () => {
+            let total = 0,
+                countValue = 1,
+                dayValue = 1;
+
+            const typeValue = calcType.options[calcType.selectedIndex].value,
+                squareValue = +calcSquare.value;
+
+            if (calcCount.value && calcCount.value > 1) {
+                countValue += (calcCount.value && calcCount.value - 1) / 10;
+            }
+
+            if (calcDay.value && calcDay.value < 5) {
+                dayValue *= 2;
+            } else if (calcDay.value && calcDay.value < 10) {
+                dayValue *= 1.5;
+            }
+
+            if (typeValue && squareValue) {
+                total = price * typeValue * squareValue * countValue * dayValue;
+            }
+
+            totalValue.textContent = total;
+        }; //countSum
+
+
+        calcBlock.addEventListener('change', (event) => {
+            const target = event.target;
+
+            if (target.matches('select') || target.matches('input')) {
+                countSum();
+            }
+        });
+
+    }; //const calc
+    calc(100);
+
+    //   const justNumber = () => {
+    //       const calcItem = document.querySelectorAll('calc-item');
+
+    //       calcItem.forEach((element) => {
+
+    //          item.target.value = item.target.value.replace(/\D/g, '');
+
+    //      });
+    //   }; //justnumber
+
+    //  justNumber();
+
 }); //window.addEventListener
