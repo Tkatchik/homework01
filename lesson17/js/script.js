@@ -363,6 +363,7 @@ window.addEventListener('DOMContentLoaded', function() {
         phone.forEach((elem) => {
             elem.addEventListener('input', (item) => {
                 item.target.value = item.target.value.replace(/[^\+\d]/g, '');
+
             });
         });
         document.body.addEventListener('input', (event) => {
@@ -383,8 +384,8 @@ window.addEventListener('DOMContentLoaded', function() {
 
         const form = document.getElementById('form1'),
             form2 = document.getElementById('form2'), //footer
-            form3 = document.getElementById('form3'), //popup
-            btn = document.querySelectorAll('.btn form-btn');
+            form3 = document.getElementById('form3'); //popup
+
 
         const statusMessage = document.createElement('div');
         statusMessage.style.cssText = 'font-size: 2rem;';
@@ -444,14 +445,13 @@ window.addEventListener('DOMContentLoaded', function() {
                 body[key] = val;
             });
 
-            postData(body,
-                () => {
-                    form3.querySelectorAll('input').forEach(item => item.value = '');
-                    statusMessage.textContent = successMessage;
-                }, (error) => {
-                    statusMessage.textContent = errorMessage;
-                    console.log(error);
-                });
+            postData(body, () => {
+                form3.querySelectorAll('input').forEach(item => item.value = '');
+                statusMessage.textContent = successMessage;
+            }, (error) => {
+                statusMessage.textContent = errorMessage;
+                console.log(error);
+            });
         }); //form3
 
 
