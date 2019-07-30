@@ -360,7 +360,6 @@ window.addEventListener('DOMContentLoaded', function() {
                 });
             }
         });
-
     }; //justnumber
     justNumber();
 
@@ -392,7 +391,6 @@ window.addEventListener('DOMContentLoaded', function() {
             form2 = document.getElementById('form2'), //footer
             form3 = document.getElementById('form3'); //popup
 
-
         const statusMessage = document.createElement('div');
         statusMessage.style.cssText = 'font-size: 2rem;';
 
@@ -407,14 +405,17 @@ window.addEventListener('DOMContentLoaded', function() {
                 body[key] = val;
             });
 
-            postData(body,
-                () => {
-                    form.querySelectorAll('input').forEach(item => item.value = '');
-                    statusMessage.textContent = successMessage;
-                }, (error) => {
-                    statusMessage.textContent = errorMessage;
-                    console.log(error);
-                });
+            const resolvePromiseMessage = () => {
+                statusMessage.textContent = successMessage;
+                form.querySelectorAll('input').forEach(item => item.value = '');
+            };
+
+            const rejectPromiseMessage = () => {
+                statusMessage.textContent = errorMessage;
+                form.querySelectorAll('input').forEach(item => item.value = '');
+            };
+            postData(body).then(resolvePromiseMessage).catch(rejectPromiseMessage);
+
         }); //form
 
         form2.addEventListener('submit', (event) => {
@@ -428,14 +429,16 @@ window.addEventListener('DOMContentLoaded', function() {
                 body[key] = val;
             });
 
-            postData(body,
-                () => {
-                    form2.querySelectorAll('input').forEach(item => item.value = '');
-                    statusMessage.textContent = successMessage;
-                }, (error) => {
-                    statusMessage.textContent = errorMessage;
-                    console.log(error);
-                });
+            const resolvePromiseMessage = () => {
+                statusMessage.textContent = successMessage;
+                form2.querySelectorAll('input').forEach(item => item.value = '');
+            };
+
+            const rejectPromiseMessage = () => {
+                statusMessage.textContent = errorMessage;
+                form2.querySelectorAll('input').forEach(item => item.value = '');
+            };
+            postData(body).then(resolvePromiseMessage).catch(rejectPromiseMessage);
 
         }); //form2
 
@@ -451,33 +454,40 @@ window.addEventListener('DOMContentLoaded', function() {
                 body[key] = val;
             });
 
-            postData(body, () => {
-                form3.querySelectorAll('input').forEach(item => item.value = '');
+            const resolvePromiseMessage = () => {
                 statusMessage.textContent = successMessage;
-            }, (error) => {
+                form3.querySelectorAll('input').forEach(item => item.value = '');
+            };
+
+            const rejectPromiseMessage = () => {
                 statusMessage.textContent = errorMessage;
-                console.log(error);
-            });
+                form3.querySelectorAll('input').forEach(item => item.value = '');
+            };
+            postData(body).then(resolvePromiseMessage).catch(rejectPromiseMessage);
+
         }); //form3
 
+        const postData = (body) => {
 
-        const postData = (body, outputData, errorData) => {
-            const request = new XMLHttpRequest();
-            request.addEventListener('readystatechange', () => {
-                if (request.readyState !== 4) {
-                    return;
-                }
-                if (request.status === 200) {
-                    outputData();
-                } else {
-                    errorData(request.status);
-                }
+            return new Promise((resolve, reject) => {
+
+                const request = new XMLHttpRequest();
+
+                request.addEventListener('readystatechange', () => {
+                    if (request.readyState !== 4) {
+                        return;
+                    }
+                    if (request.status === 200) {
+                        resolve();
+                    } else {
+                        reject(request.status);
+                    }
+                });
+                request.open('POST', './server.php');
+                request.setRequestHeader('Content-Type', 'application/json');
+                request.send(JSON.stringify(body));
             });
-            request.open('POST', './server.php');
-            request.setRequestHeader('Content-Type', 'application/json');
-            request.send(JSON.stringify(body));
         };
-
     }; //sendform
     sendForm();
 
