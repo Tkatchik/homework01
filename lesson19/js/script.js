@@ -414,7 +414,14 @@ window.addEventListener('DOMContentLoaded', function() {
                 statusMessage.textContent = errorMessage;
                 form.querySelectorAll('input').forEach(item => item.value = '');
             };
-            postData(body).then(resolvePromiseMessage).catch(rejectPromiseMessage);
+            postData(body).then((response) => {
+                    console.log(response);
+                    if (response.status !== 200) {
+                        throw new Error('Status network not 200');
+                    }
+                    resolvePromiseMessage();
+                })
+                .catch(rejectPromiseMessage);
 
         }); //form
 
@@ -438,7 +445,14 @@ window.addEventListener('DOMContentLoaded', function() {
                 statusMessage.textContent = errorMessage;
                 form2.querySelectorAll('input').forEach(item => item.value = '');
             };
-            postData(body).then(resolvePromiseMessage).catch(rejectPromiseMessage);
+            postData(body).then((response) => {
+                    console.log(response);
+                    if (response.status !== 200) {
+                        throw new Error('Status network not 200');
+                    }
+                    resolvePromiseMessage();
+                })
+                .catch(rejectPromiseMessage);
 
         }); //form2
 
@@ -463,7 +477,14 @@ window.addEventListener('DOMContentLoaded', function() {
                 statusMessage.textContent = errorMessage;
                 form3.querySelectorAll('input').forEach(item => item.value = '');
             };
-            postData(body).then(resolvePromiseMessage).catch(rejectPromiseMessage);
+            postData(body).then((response) => {
+                    console.log(response);
+                    if (response.status !== 200) {
+                        throw new Error('Status network not 200');
+                    }
+                    resolvePromiseMessage();
+                })
+                .catch(rejectPromiseMessage);
 
         }); //form3
 
