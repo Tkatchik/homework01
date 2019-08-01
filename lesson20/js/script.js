@@ -48,7 +48,7 @@ window.addEventListener('DOMContentLoaded', function() {
         updateClock();
     }; //const updateClock
 
-    countTimer('30 july 2019');
+    countTimer('10 august 2019');
 
     //меню
     const toggleMenue = () => {
@@ -190,7 +190,6 @@ window.addEventListener('DOMContentLoaded', function() {
 
     const slider = () => {
         const slide = document.querySelectorAll('.portfolio-item'),
-            btn = document.querySelectorAll('.portfolio-btn'),
             dot = document.querySelectorAll('.dot'),
             slider = document.querySelector('.portfolio-content');
 
@@ -277,7 +276,7 @@ window.addEventListener('DOMContentLoaded', function() {
     // changing foto
 
     const fotoChange = () => {
-        const teamFotos = document.querySelectorAll('.command .row img');
+        const teamFotos = document.querySelectorAll('.command__photo');
 
         teamFotos.forEach(elem => {
             let commonTeamFotos;
@@ -363,7 +362,7 @@ window.addEventListener('DOMContentLoaded', function() {
     }; //justnumber
     justNumber();
 
-    const validationForm = () => {
+    const validationPhone = () => {
         const phone = document.querySelectorAll('.form-phone');
         phone.forEach((elem) => {
             elem.addEventListener('input', (item) => {
@@ -371,6 +370,10 @@ window.addEventListener('DOMContentLoaded', function() {
 
             });
         });
+    };
+    validationPhone();
+
+    const validationForm = () => {
         document.body.addEventListener('input', (event) => {
             if (event.target.matches('.form-name, #form2-name, .mess')) {
                 event.target.value = event.target.value.replace(/[^а-я]/gi, '');
@@ -387,106 +390,43 @@ window.addEventListener('DOMContentLoaded', function() {
             loadMessage = 'Загрузка...',
             successMessage = 'Спасибо! Мы скоро с Вами свяжемся!';
 
-        const form = document.getElementById('form1'),
-            form2 = document.getElementById('form2'), //footer
-            form3 = document.getElementById('form3'); //popup
+        const form = document.querySelectorAll('form');
 
         const statusMessage = document.createElement('div');
-        statusMessage.style.cssText = 'font-size: 2rem;';
+        statusMessage.style.cssText = 'font-size: 2rem; color: white;';
 
-        form.addEventListener('submit', (event) => {
-            event.preventDefault();
-            form.appendChild(statusMessage);
-            statusMessage.textContent = loadMessage;
-            const formData = new FormData(form);
+        form.forEach((item) => {
+            item.addEventListener('submit', (event) => {
+                event.preventDefault();
+                form.appendChild(statusMessage);
+                const formData = new FormData(form);
+                let body = {};
 
-            let body = {};
-            formData.forEach((val, key) => {
-                body[key] = val;
+                formData.forEach((val, key) => {
+                    body[key] = val;
+                });
+
+                statusMessage.textContent = loadMessage;
+
+                postData(body)
+                    .then((response) => {
+                        if (response.status !== 200) {
+                            throw new Error('Status network not 200');
+                        }
+                        statusMessage.textContent = successMessage;
+                        form.querySelectorAll('input').forEach((elem) => {
+                            elem.value = '';
+                        });
+
+                    })
+                    .catch((error) => {
+                        statusMessage.textContent = errorMessage;
+                        console.error(error);
+                    });
+
             });
-
-            const resolvePromiseMessage = () => {
-                statusMessage.textContent = successMessage;
-                form.querySelectorAll('input').forEach(item => item.value = '');
-            };
-
-            const rejectPromiseMessage = () => {
-                statusMessage.textContent = errorMessage;
-                form.querySelectorAll('input').forEach(item => item.value = '');
-            };
-            postData(body).then((response) => {
-                    console.log(response);
-                    if (response.status !== 200) {
-                        throw new Error('Status network not 200');
-                    }
-                    resolvePromiseMessage();
-                })
-                .catch(rejectPromiseMessage);
 
         }); //form
-
-        form2.addEventListener('submit', (event) => {
-            event.preventDefault();
-            form2.appendChild(statusMessage);
-            statusMessage.textContent = loadMessage;
-            const formData = new FormData(form2);
-
-            let body = {};
-            formData.forEach((val, key) => {
-                body[key] = val;
-            });
-
-            const resolvePromiseMessage = () => {
-                statusMessage.textContent = successMessage;
-                form2.querySelectorAll('input').forEach(item => item.value = '');
-            };
-
-            const rejectPromiseMessage = () => {
-                statusMessage.textContent = errorMessage;
-                form2.querySelectorAll('input').forEach(item => item.value = '');
-            };
-            postData(body).then((response) => {
-                    console.log(response);
-                    if (response.status !== 200) {
-                        throw new Error('Status network not 200');
-                    }
-                    resolvePromiseMessage();
-                })
-                .catch(rejectPromiseMessage);
-
-        }); //form2
-
-        form3.addEventListener('submit', (event) => {
-            event.preventDefault();
-            form3.appendChild(statusMessage);
-            statusMessage.textContent = loadMessage;
-            statusMessage.style.cssText = 'color: white';
-            const formData = new FormData(form3);
-
-            let body = {};
-            formData.forEach((val, key) => {
-                body[key] = val;
-            });
-
-            const resolvePromiseMessage = () => {
-                statusMessage.textContent = successMessage;
-                form3.querySelectorAll('input').forEach(item => item.value = '');
-            };
-
-            const rejectPromiseMessage = () => {
-                statusMessage.textContent = errorMessage;
-                form3.querySelectorAll('input').forEach(item => item.value = '');
-            };
-            postData(body).then((response) => {
-                    console.log(response);
-                    if (response.status !== 200) {
-                        throw new Error('Status network not 200');
-                    }
-                    resolvePromiseMessage();
-                })
-                .catch(rejectPromiseMessage);
-
-        }); //form3
 
         const postData = (body) => {
             return fetch('./server.php', {
