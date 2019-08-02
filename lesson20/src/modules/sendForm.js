@@ -49,3 +49,5 @@ const sendForm = () => {
 
     };
 }; //sendform
+
+export default sendForm;

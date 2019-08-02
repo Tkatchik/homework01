@@ -17,3 +17,5 @@ const fotoChange = () => {
     });
 
 }; // const fotoChange
+
+export default fotoChange;

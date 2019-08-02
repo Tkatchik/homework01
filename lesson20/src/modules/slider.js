@@ -81,3 +81,5 @@ const slider = () => {
     startSlide(1500);
 
 }; //const slider
+
+export default slider;

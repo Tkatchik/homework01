@@ -6,3 +6,5 @@ const validationForm = () => {
     });
 
 };
+
+export default validationForm;

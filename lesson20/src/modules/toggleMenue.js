@@ -28,3 +28,5 @@ const toggleMenue = () => {
     });
 
 }; //const toggleMenue
+
+export default toggleMenue;

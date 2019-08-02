@@ -7,3 +7,5 @@ const validationPhone = () => {
         });
     });
 };
+
+export default validationPhone;

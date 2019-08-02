@@ -9,3 +9,5 @@ const insertDots = () => {
     });
 
 }; // const insertDots
+
+export default insertDots;

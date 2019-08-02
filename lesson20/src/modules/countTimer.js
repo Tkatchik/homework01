@@ -43,3 +43,5 @@ const countTimer = (deadLine) => {
 
     updateClock();
 }; //const updateClock
+
+export default countTimer;

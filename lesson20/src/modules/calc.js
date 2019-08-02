@@ -42,3 +42,5 @@ const calc = (price = 100) => {
     });
 
 }; //const calc
+
+export default calc;

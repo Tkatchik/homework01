@@ -12,3 +12,5 @@ const justNumber = () => {
         }
     });
 }; //justnumber
+
+export default justNumber;
